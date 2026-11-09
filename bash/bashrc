@@ -1,0 +1,59 @@
+# sessões interativas apenas
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+# ── oh-my-bash ────────────────────────────────────────────────
+export OSH='/home/jota/.oh-my-bash'
+OSH_THEME="jota"
+OMB_USE_SUDO=true
+
+completions=(git ssh)
+aliases=(general)
+plugins=(git)
+
+source "$OSH"/oh-my-bash.sh
+
+# ── PATH ──────────────────────────────────────────────────────
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"
+export PATH="$PATH:$HOME/Desktop/dev/42sp/norminette/bin"
+
+# ── NVM (lazy load — só inicializa quando você usar node/nvm) ──
+export NVM_DIR="$HOME/.nvm"
+nvm() {
+  unset -f nvm node npm npx
+  [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+node() { nvm; node "$@"; }
+npm()  { nvm; npm  "$@"; }
+npx()  { nvm; npx  "$@"; }
+
+# ── exercism ──────────────────────────────────────────────────
+[ -f ~/.config/exercism/exercism_completion.bash ] && \
+  source ~/.config/exercism/exercism_completion.bash
+
+# ── aliases: 42sp ─────────────────────────────────────────────
+alias moedor='norminette'
+alias no_main='norminette $(find . \( -name "*.c" -o -name "*.h" \) ! -name "main.c")'
+alias gww='gcc -Wall -Wextra -Werror'
+alias ft='gcc -Wall -Wextra -Werror -o a.out main.c -L. -lft'
+alias liberar='set +o noclobber'
+
+# ── aliases: git ──────────────────────────────────────────────
+alias gs='git status'
+alias gl='git log --oneline --graph --decorate -10'
+alias gd='git diff'
+git_parcial() { git clone --filter=blob:none --depth=1 "$1"; }
+
+# ── aliases: navegação ────────────────────────────────────────
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ll='ls -lah'
+alias dev='cd ~/Desktop/dev'
+
+# ── antigravity ───────────────────────────────────────────────
+alias agy='agy --mode auto --dangerously-skip-permissions'

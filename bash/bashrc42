@@ -1,0 +1,45 @@
+# sessões interativas apenas
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+# ── oh-my-bash ────────────────────────────────────────────────
+export OSH=$HOME/.oh-my-bash
+OSH_THEME="jota"
+OMB_USE_SUDO=true
+
+completions=(git composer ssh)
+aliases=(general)
+plugins=(git bashmarks)
+
+source $OSH/oh-my-bash.sh
+
+# ── PATH ──────────────────────────────────────────────────────
+export PATH="$HOME/bin/squashfs-root/usr/bin:$PATH"
+export PATH="$HOME/bin/node-v20.11.0-linux-x64/bin:$PATH"
+export PATH="$PATH:/home/jota/Desktop/dev/42sp/norminette/bin"
+
+# ── 42SP: dados do header (lidos pelo vimrc no F1) ────────────
+export USER=jose-cad
+export MAIL=jose-cad@student.42sp.org.br
+
+# ── aliases: 42sp ─────────────────────────────────────────────
+alias moedor='norminette'
+alias ww='cc -Wall -Wextra -Werror'
+alias gww='gcc -Wall -Wextra -Werror'
+alias ft='gcc -Wall -Wextra -Werror -o a.out main.c -L. -lft'
+alias francinette='/nfs/homes/jose-cad/francinette/tester.sh'
+alias paco='/nfs/homes/jose-cad/francinette/tester.sh'
+
+# ── aliases: git ──────────────────────────────────────────────
+alias gs='git status'
+alias gl='git log --oneline --graph --decorate -10'
+alias gd='git diff'
+git_parcial() { git clone --filter=blob:none --depth=1 "$1"; }
+
+# ── aliases: navegação ────────────────────────────────────────
+alias cls='clear'
+alias ll='ls -lah'
+alias ..='cd ..'
+alias ...='cd ../..'

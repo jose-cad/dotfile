@@ -43,7 +43,6 @@ set splitbelow              " Create the horizontal splits below
 set autoread                " Update vim after file update from outside
 set mouse=a                 " Enable mouse support
 set history=500             " By default is 50
-set incsearch               " Highlight search
 set cursorline              " Highlight on edit line
 set laststatus=1            " Show information on status bar
 set clipboard=unnamedplus   " Share clipboard with the system
@@ -75,6 +74,9 @@ let g:NERDTreeHighlightCursorline = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mapeamento para abrir um terminal (yank nao funciona)
 nnoremap <silent> <C-t> :botright terminal ++rows=9<CR>
+
+autocmd BufEnter term://* silent! nnoremap <buffer> <C-c> "+y
+autocmd BufEnter term://* silent! vnoremap <buffer> <C-c> "+y
 
 if has('terminal')
   " Define as cores para o terminal
@@ -187,6 +189,7 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDDefaultLiner = '/* %s */'
 let g:NERDCompactSexyComs = 1
 map cc <Plug>NERDCommenterInvert
+map c<space> <Plug>NERDCommenterBlock
 map cs <Plug>NERDCommenterToggle
 
 
@@ -210,6 +213,7 @@ let g:ale_linters = {
     \ 'c': ['gcc'],
     \ 'cpp': [],
     \ 'python': [],
+    \ 'html': [],
     \ 'sh': ['shellcheck'],
     \ }
 
